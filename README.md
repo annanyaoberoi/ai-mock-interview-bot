@@ -1,121 +1,108 @@
 # ✦ AI Mock Interview Bot
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" />
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
-  <img src="https://img.shields.io/badge/OpenRouter-6467F2?style=for-the-badge&logoColor=white" />
+  <b>Your personal AI-powered interview practice space.</b>
+  <br/>
+  Practice. Improve. Perform with confidence.
 </p>
 
 <p align="center">
-  <b>Your personal AI-powered interview practice space.</b>
-  <br />
-  Practice. Improve. Perform with confidence.
+  <a href="https://ai-mock-interview-bot-neon.vercel.app/">
+    <img src="https://img.shields.io/badge/🚀_Live_Demo-Try_InterviewAI-7C6CFF?style=for-the-badge" />
+  </a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white"/>
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>
+  <img src="https://img.shields.io/badge/OpenRouter-6467F2?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Deployed_on-Vercel-black?style=for-the-badge&logo=vercel"/>
 </p>
 
 ---
 
 ## ◈ Overview
 
-**AI Mock Interview Bot** is an interactive interview preparation platform designed to simulate technical interviews using Large Language Models (LLMs).
+**InterviewAI** is an AI-powered mock interview platform designed to help candidates practice technical interviews in an interactive environment.
 
-It allows candidates to practice role-specific interviews, respond to AI-generated questions, and receive structured feedback on their performance.
+It uses Large Language Models (LLMs) to generate interview questions, understand candidate responses, and provide structured feedback through an AI-generated performance report.
 
-From answering technical questions to reviewing a detailed evaluation report, the platform creates a simple and accessible environment for interview preparation.
+Whether you're preparing for your first technical interview or improving your communication skills, InterviewAI offers a convenient space to practice and learn.
 
 ## ✧ Features
 
 | Feature | Description |
 |---|---|
-| 🎯 Role-based Interviews | Practice interviews tailored to selected job roles |
-| 🤖 AI Interviewer | Dynamic questions generated using an LLM |
-| 🎙️ Voice Input | Answer questions using browser-supported speech recognition |
-| ⏱️ Interview Timer | Track interview duration and progress |
-| 📊 AI Evaluation | Receive an overall performance score and feedback |
-| 📝 Detailed Report | Review strengths and areas for improvement |
+| 🎯 Role-based Interviews | Choose your target job role |
+| 🤖 AI Interviewer | Dynamic interview questions powered by an LLM |
+| 🎙️ Voice Input | Answer using browser-supported speech recognition |
+| ⏱️ Interview Timer | Track your interview duration |
+| 📊 AI Evaluation | Get an overall performance score |
+| 📝 Feedback Report | Understand strengths and improvement areas |
 | 📥 Transcript Export | Export your interview conversation |
 
-## ◈ Preview
+## ◈ Live Demo
 
-<p align="center">
-  <i>Application screenshots coming soon.</i>
-</p>
+**Try InterviewAI here:**
 
-<!-- Add your screenshots here after uploading them to the screenshots folder.
-
-<p align="center">
-  <img src="screenshots/dashboard.png" width="85%" alt="AI Mock Interview Dashboard" />
-  <br />
-  <i>Dashboard</i>
-</p>
-
-<p align="center">
-  <img src="screenshots/interview-report.png" width="85%" alt="Interview Evaluation Report" />
-  <br />
-  <i>AI Evaluation Report</i>
-</p>
--->
+https://ai-mock-interview-bot-neon.vercel.app/
 
 ## ⚙️ Tech Stack
 
 | Technology | Purpose |
 |---|---|
 | Python | Backend development |
-| Flask | Web application and API endpoints |
+| Flask | Application backend and API |
 | HTML & CSS | User interface and styling |
 | JavaScript | Frontend interactions |
 | OpenRouter API | LLM integration |
-| Speech Recognition API | Browser-based voice input |
+| Browser Speech Recognition | Voice input |
+| Vercel | Deployment and hosting |
 
 ## ◈ How It Works
 
 ```text
-      Candidate
-          │
-          ▼
-   Select Interview Role
-          │
-          ▼
-     AI Interviewer
-          │
-          ▼
-   Answer Questions
-    (Text / Voice)
-          │
-          ▼
-   LLM-based Evaluation
-          │
-          ▼
-   Performance Report
-          │
-          ▼
-  Feedback & Improvement
+       Candidate
+           |
+           v
+    Select Interview Role
+           |
+           v
+      AI Interviewer
+           |
+           v
+     Answer Questions
+       (Text / Voice)
+           |
+           v
+     AI-based Evaluation
+           |
+           v
+     Performance Report
+           |
+           v
+     Feedback & Improvement
 ```
 
-## 🚀 Getting Started
+## 🚀 Run Locally
 
 ### 1. Clone the repository
 
 ```bash
-git clone YOUR_REPOSITORY_URL
+git clone https://github.com/annanyaoberoi/ai-mock-interview-bot.git
 cd ai-mock-interview-bot
 ```
 
-### 2. Navigate to the backend
-
-```bash
-cd backend
-```
-
-### 3. Install dependencies
+### 2. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Configure environment variables
+### 3. Configure environment variables
 
-Create a `.env` file using the provided `.env.example` template.
+Create a `.env` file using `.env.example` as a template.
 
 Add your OpenRouter API key:
 
@@ -124,15 +111,13 @@ OPENROUTER_API_KEY=your_api_key_here
 OPENROUTER_MODEL=openrouter/free
 ```
 
-**Important:** Never upload your `.env` file or expose your API key publicly.
-
-### 5. Run the application
+### 4. Start the application
 
 ```bash
 python app.py
 ```
 
-### 6. Open in your browser
+### 5. Open in your browser
 
 ```text
 http://127.0.0.1:5000
@@ -148,29 +133,27 @@ ai-mock-interview-bot/
 ├── requirements.txt
 ├── .env.example
 ├── .gitignore
-├── screenshots/
 └── README.md
 ```
+
+## 🔐 Security
+
+- API credentials are stored in environment variables.
+- The actual `.env` file is excluded from Git.
+- API keys are configured privately through Vercel environment variables.
 
 ## ✦ Future Enhancements
 
 - Skill-wise performance analytics
 - Interview history and progress tracking
-- Enhanced speech-to-text and text-to-speech support
-- More personalized interview question generation
-- Improved evaluation consistency
+- Enhanced speech-to-text and text-to-speech capabilities
+- More personalized interview questions
 - Additional interview categories and difficulty levels
-
-## ◈ Purpose
-
-The goal of this project is to make interview practice more accessible and interactive by combining conversational AI with structured performance feedback.
-
-It is a personal learning project focused on exploring LLM integration, backend development, frontend interaction, and AI-powered evaluation.
 
 ---
 
 <p align="center">
   <b>Built with curiosity and a little bit of code. ✦</b>
-  <br /><br />
-  <i>Practice smarter. Keep improving.</i>
+  <br/>
+  Practice smarter. Keep improving.
 </p>
