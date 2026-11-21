@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="description" content="Practice interviews with an AI interviewer and get actionable feedback." />
+  <title>InterviewAI — Practice with purpose</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{color-scheme:dark;--bg:#090d19;--panel:#11182a;--panel2:#151e33;--line:rgba(166,184,224,.13);--muted:#8e9bb5;--text:#edf2ff;--purple:#8b7cff;--cyan:#5bd6d0;--green:#65d6a5;--red:#ff7d91}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 75% -15%,#25265a 0,transparent 38%),var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;min-height:100vh}
+    button,input,select{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:270px minmax(0,1fr)}
+    .sidebar{border-right:1px solid var(--line);padding:25px 18px;background:rgba(10,15,29,.78);display:flex;flex-direction:column;gap:24px}
+    .brand{display:flex;align-items:center;gap:12px;padding:0 8px}.brand-mark{width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,#8878ff,#4ecac8);display:grid;place-items:center;color:#09101e;font-weight:800;font-family:"Space Grotesk";font-size:19px;box-shadow:0 8px 28px #6f67ef40}
+    .brand h1{font:700 19px "Space Grotesk";margin:0}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+    .new-btn,.primary{border:0;border-radius:12px;padding:13px 16px;background:linear-gradient(110deg,#8575ff,#5d8dff);color:white;font-weight:700;box-shadow:0 8px 25px #726aff2c;transition:.2s}
+    .new-btn:hover,.primary:hover{transform:translateY(-1px);filter:brightness(1.08)}.side-label{font-size:10px;letter-spacing:1.5px;color:#6f7d99;font-weight:700;padding:0 9px;text-transform:uppercase}
+    .nav-item{width:100%;border:1px solid transparent;background:transparent;color:#aeb9d0;text-align:left;padding:11px 12px;border-radius:10px;display:flex;gap:11px;align-items:center;font-size:13px}.nav-item.active,.nav-item:hover{background:#1b2340;border-color:#7770e52d;color:white}
+    .side-card{border:1px solid var(--line);background:linear-gradient(145deg,#171f36,#111827);border-radius:15px;padding:15px;margin-top:auto}.side-card p{font-size:12px;color:var(--muted);line-height:1.55;margin:8px 0 0}
+    .main{min-width:0;display:flex;flex-direction:column;min-height:100vh}.topbar{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px;background:#0b1020a8;backdrop-filter:blur(14px)}
+    .crumb{color:var(--muted);font-size:12px}.topbar h2{font:600 16px "Space Grotesk";margin:4px 0 0}.status{display:flex;align-items:center;gap:8px;color:#aebbd2;font-size:12px}.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px #65d6a5}
+    .content{padding:28px 34px;max-width:1500px;width:100%;margin:0 auto;flex:1}.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:23px}.eyebrow{color:var(--cyan);font-size:11px;letter-spacing:1.8px;text-transform:uppercase;font-weight:700}.hero h2{font:700 clamp(25px,3vw,34px) "Space Grotesk";margin:8px 0}.hero p{color:var(--muted);margin:0;font-size:13px}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:20px;align-items:start}.panel{background:linear-gradient(145deg,#141c30ed,#101727f2);border:1px solid var(--line);border-radius:18px;box-shadow:0 15px 50px #00000020}
+    .interview{min-height:650px;display:flex;flex-direction:column;overflow:hidden}.interview-head{padding:17px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:15px}
+    .session-title{font-weight:700;font-size:13px}.session-sub{font-size:11px;color:var(--muted);margin-top:4px}.timer{font-variant-numeric:tabular-nums;color:var(--cyan);font-size:13px;background:#5bd6d014;border:1px solid #5bd6d02b;padding:8px 11px;border-radius:9px}
+    .chat{padding:22px;display:flex;flex-direction:column;gap:19px;flex:1;min-height:390px;max-height:570px;overflow-y:auto;scroll-behavior:smooth}
+    .message{display:flex;gap:11px;max-width:88%;animation:rise .25s ease}.message.user{align-self:flex-end;flex-direction:row-reverse}.avatar{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;flex:none;background:#8074f12b;color:#bdb5ff;font-weight:800;font-size:11px}.user .avatar{background:#4fcac522;color:var(--cyan)}
+    .bubble{border:1px solid var(--line);background:#1a2338;padding:12px 15px;border-radius:4px 14px 14px 14px;font-size:13px;line-height:1.65;color:#dce5f8;white-space:pre-wrap;overflow-wrap:anywhere}.user .bubble{background:#34316a66;border-color:#8278ef3b;border-radius:14px 4px 14px 14px}
+    .msg-meta{font-size:10px;color:#75839f;margin:0 3px 5px}.typing{display:flex;gap:4px;padding:4px}.typing i{width:5px;height:5px;border-radius:50%;background:#a99eff;animation:pulse .8s infinite alternate}.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+    .composer{border-top:1px solid var(--line);padding:16px 18px;background:#0d1424a8}.input-row{display:flex;gap:9px;align-items:center}.input-wrap{flex:1;position:relative}.input-wrap input{width:100%;background:#0c1323;border:1px solid #28334c;border-radius:12px;padding:14px 15px;color:white;outline:none;font-size:13px}.input-wrap input:focus{border-color:#8278ef;box-shadow:0 0 0 3px #8278ef20}.icon-btn,.send-btn{border:1px solid var(--line);background:#1b2540;color:#c5cfea;border-radius:11px;padding:12px 14px}.icon-btn:hover{background:#293657}.send-btn{background:#7d70f1;color:white;border:0;font-weight:700;padding:13px 19px}.send-btn:disabled{opacity:.45;cursor:not-allowed}
+    .composer-note{font-size:10px;color:#73809b;margin:9px 3px 0}.side-stack{display:flex;flex-direction:column;gap:14px}.side-panel{padding:17px}.panel-title{font:600 13px "Space Grotesk";margin:0 0 14px}.field{margin-bottom:13px}.field label{display:block;color:#9eabc4;font-size:11px;margin-bottom:7px}.field input,.field select{width:100%;background:#0c1323;color:#eaf0ff;border:1px solid #28334c;border-radius:9px;padding:10px 11px;font-size:12px;outline:none}.field input:focus,.field select:focus{border-color:#8278ef}.field select option{background:#11182a}
+    .metric{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:12px}.metric:last-child{border:0}.metric span{color:var(--muted)}.metric strong{color:#dce5ff;font-size:12px}
+    .tip{font-size:12px;line-height:1.6;color:#9ba9c4;margin:0}.tip b{color:#d8ddff}.action-row{display:flex;gap:8px;flex-wrap:wrap}.secondary{background:#202a43;border:1px solid var(--line);color:#d4def5;border-radius:10px;padding:10px 12px;font-size:11px;font-weight:600}.secondary:hover{background:#2b3858}.danger{color:#ff9baa}
+    .overlay{position:fixed;inset:0;background:#050814c9;backdrop-filter:blur(8px);display:none;place-items:center;padding:20px;z-index:10}.overlay.show{display:grid}.modal{width:min(480px,100%);padding:25px;background:#151e32;border:1px solid #394565;border-radius:20px;box-shadow:0 30px 100px #0009}.modal h3{font:700 22px "Space Grotesk";margin:0 0 7px}.modal>p{font-size:12px;color:var(--muted);margin:0 0 22px;line-height:1.6}.modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:20px}
+    .report{display:none;margin-top:20px;padding:22px}.report.show{display:block}.score-row{display:flex;align-items:center;gap:17px;margin:15px 0}.score{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;border:5px solid #65d6a5;color:#a3f0ca;font:700 22px "Space Grotesk"}.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:17px}.report-box{background:#0d1526;border:1px solid var(--line);border-radius:12px;padding:14px}.report-box h4{font-size:12px;margin:0 0 9px}.report-box ul{margin:0;padding-left:17px;color:#aebbd2;font-size:11px;line-height:1.8}.report-box p{color:#aebbd2;font-size:11px;line-height:1.7;margin:0}
+    .toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#202a43;border:1px solid #455474;color:white;border-radius:10px;padding:11px 16px;font-size:12px;transition:.25s;z-index:20}.toast.show{opacity:1;transform:translate(-50%,0)}
+    @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}@keyframes pulse{to{opacity:.25;transform:translateY(-3px)}}
+    @media(max-width:1050px){.app{grid-template-columns:220px minmax(0,1fr)}.layout{grid-template-columns:minmax(0,1fr) 250px}.content{padding:24px 20px}.topbar{padding:0 20px}}
+    @media(max-width:800px){.app{display:block}.sidebar{display:none}.layout{grid-template-columns:1fr}.side-stack{display:grid;grid-template-columns:1fr 1fr}.content{padding:20px 14px}.topbar{height:65px;padding:0 16px}.hero{align-items:flex-start;flex-direction:column}.interview{min-height:620px}.chat{padding:16px}.message{max-width:96%}}
+    @media(max-width:520px){.side-stack{grid-template-columns:1fr}.interview-head{padding:14px}.chat{max-height:480px}.input-row{gap:6px}.icon-btn{padding:12px 10px}.send-btn{padding:13px 14px}.report-grid{grid-template-columns:1fr}.content{padding:17px 11px}.hero h2{font-size:25px}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">IA</div><div><h1>InterviewAI</h1><small>Practice with purpose</small></div></div>
+    <button class="new-btn" id="newInterview">＋ &nbsp; New interview</button>
+    <div>
+      <div class="side-label">Workspace</div>
+      <button class="nav-item active" type="button">◉ &nbsp; Interview room</button>
+      <button class="nav-item" id="exportSide" type="button">⇩ &nbsp; Export transcript</button>
+    </div>
+    <div class="side-card">
+      <div class="eyebrow">Your practice space</div>
+      <p>Build confidence through deliberate practice. Answer one question at a time, then review evidence-based feedback.</p>
+    </div>
+    <div style="color:#64718c;font-size:10px;padding:0 8px">INTERVIEWAI · PORTFOLIO EDITION</div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div><div class="crumb">Workspace / Interview room</div><h2>Mock interview session</h2></div>
+      <div class="status"><span class="dot" id="apiDot"></span><span id="apiStatus">Checking backend…</span></div>
+    </header>
+
+    <section class="content">
+      <div class="hero">
+        <div><div class="eyebrow">A better way to prepare</div><h2>Show what you know.</h2><p>Practice realistic interviews and turn every answer into a learning opportunity.</p></div>
+        <div class="action-row"><button class="secondary" id="exportBtn">⇩ Export</button><button class="secondary danger" id="endBtn">Finish & evaluate</button></div>
+      </div>
+
+      <div class="layout">
+        <section class="panel interview">
+          <div class="interview-head">
+            <div><div class="session-title" id="sessionHeading">Software Engineer · Entry level</div><div class="session-sub" id="sessionSub">Mixed interview · Ready when you are</div></div>
+            <div class="timer" id="timer">00:00</div>
+          </div>
+          <div class="chat" id="chat" aria-live="polite">
+            <div class="message"><div class="avatar">AI</div><div><div class="msg-meta">INTERVIEWAI · INTERVIEWER</div><div class="bubble">Welcome! I'm your AI interviewer. Set your target role and interview focus on the right, then click <b>Start interview</b>. I'll ask one question at a time and adapt based on your answers.</div></div></div>
+          </div>
+          <div class="composer">
+            <div class="input-row">
+              <div class="input-wrap"><input id="answerInput" type="text" placeholder="Type your answer here…" autocomplete="off" disabled></div>
+              <button class="icon-btn" id="micBtn" title="Use voice input" aria-label="Use voice input">🎙</button>
+              <button class="send-btn" id="sendBtn" disabled>Send ↗</button>
+            </div>
+            <div class="composer-note">Press Enter to send · Your transcript stays in this browser session</div>
+          </div>
+        </section>
+
+        <aside class="side-stack">
+          <section class="panel side-panel">
+            <h3 class="panel-title">Interview setup</h3>
+            <div class="field"><label for="role">Target role</label><input id="role" value="Software Engineer" maxlength="120"></div>
+            <div class="field"><label for="level">Experience level</label><select id="level"><option>Entry level</option><option>Internship</option><option>1–3 years</option><option>3–5 years</option><option>Senior</option></select></div>
+            <div class="field"><label for="focus">Interview focus</label><select id="focus"><option>Mixed interview</option><option>Technical</option><option>Behavioral</option><option>HR</option><option>System design</option><option>Data structures & algorithms</option><option>SQL & databases</option></select></div>
+            <div class="field"><label for="company">Company (optional)</label><input id="company" placeholder="e.g. Google, Deloitte…" maxlength="100"></div>
+            <button class="primary" id="startBtn" style="width:100%">Start interview →</button>
+          </section>
+
+          <section class="panel side-panel">
+            <h3 class="panel-title">Session overview</h3>
+            <div class="metric"><span>Questions answered</span><strong id="answerCount">0</strong></div>
+            <div class="metric"><span>Session status</span><strong id="sessionStatus">Not started</strong></div>
+            <div class="metric"><span>Evaluation</span><strong id="evalStatus">Not available</strong></div>
+          </section>
+
+          <section class="panel side-panel">
+            <h3 class="panel-title">Quick tip</h3>
+            <p class="tip"><b>Use the STAR method</b> for behavioural questions: describe the Situation, Task, Action and Result. For technical questions, explain your approach before jumping into the answer.</p>
+          </section>
+        </aside>
+      </div>
+
+      <section class="panel report" id="report">
+        <div class="eyebrow">Your interview report</div><h2 style="font:700 22px 'Space Grotesk';margin:7px 0">Performance review</h2>
+        <div class="score-row"><div class="score" id="scoreValue">—</div><div><b id="reportSummaryTitle">Interview completed</b><p id="reportSummary" class="tip" style="margin-top:5px"></p></div></div>
+        <div class="report-grid">
+          <div class="report-box"><h4>✦ Strengths</h4><ul id="strengths"></ul></div>
+          <div class="report-box"><h4>↗ Areas to improve</h4><ul id="improvements"></ul></div>
+          <div class="report-box"><h4>Communication</h4><p id="communication"></p></div>
+          <div class="report-box"><h4>Technical depth</h4><p id="technical"></p></div>
+          <div class="report-box" style="grid-column:1/-1"><h4>Next practice steps</h4><ul id="nextSteps"></ul></div>
+        </div>
+      </section>
+    </section>
+  </main>
+</div>
+
+<div class="overlay" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal"><h3 id="modalTitle">Start a new interview?</h3><p>This will clear the current chat from the page. Export your transcript first if you want to keep a copy.</p><div class="modal-actions"><button class="secondary" id="cancelNew">Cancel</button><button class="primary" id="confirmNew">Start fresh</button></div></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const state = {messages:[], active:false, startedAt:null, elapsed:0, timerId:null, busy:false, config:{}, recognition:null};
+  const chat = $("chat");
+
+  function toast(message){const el=$("toast");el.textContent=message;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2600)}
+  function addMessage(role, content){
+    const row=document.createElement("div"); row.className=`message ${role==="user"?"user":""}`;
+    const avatar=document.createElement("div");avatar.className="avatar";avatar.textContent=role==="user"?"YOU":"AI";
+    const wrap=document.createElement("div");
+    const meta=document.createElement("div");meta.className="msg-meta";meta.textContent=role==="user"?"YOU · CANDIDATE":"INTERVIEWAI · INTERVIEWER";
+    const bubble=document.createElement("div");bubble.className="bubble";bubble.textContent=content;
+    wrap.append(meta,bubble);row.append(avatar,wrap);chat.append(row);chat.scrollTop=chat.scrollHeight;
+  }
+  function showTyping(){
+    const row=document.createElement("div");row.className="message";row.id="typing";
+    const avatar=document.createElement("div");avatar.className="avatar";avatar.textContent="AI";
+    const bubble=document.createElement("div");bubble.className="bubble";bubble.innerHTML='<span class="typing"><i></i><i></i><i></i></span>';
+    row.append(avatar,bubble);chat.append(row);chat.scrollTop=chat.scrollHeight;
+  }
+  function removeTyping(){const el=$("typing");if(el)el.remove()}
+  function setBusy(value){state.busy=value;$("sendBtn").disabled=value||!state.active;$("startBtn").disabled=value||state.active;$("answerInput").disabled=value||!state.active;$("sendBtn").textContent=value?"Thinking…":"Send ↗"}
+  function getConfig(){return {role:$("role").value.trim()||"Software Engineer",level:$("level").value,focus:$("focus").value,company:$("company").value.trim()}}
+  function setSessionUI(active){
+    state.active=active;$("answerInput").disabled=!active;$("sendBtn").disabled=!active;$("startBtn").disabled=active;
+    $("sessionStatus").textContent=active?"In progress":"Not started";
+    $("startBtn").textContent=active?"Interview in progress":"Start interview →";
+    $("role").disabled=active;$("level").disabled=active;$("focus").disabled=active;$("company").disabled=active;
+  }
+  function startTimer(){
+    state.startedAt=Date.now();state.elapsed=0;
+    clearInterval(state.timerId);state.timerId=setInterval(()=>{state.elapsed=Math.floor((Date.now()-state.startedAt)/1000);const m=String(Math.floor(state.elapsed/60)).padStart(2,"0"),s=String(state.elapsed%60).padStart(2,"0");$("timer").textContent=`${m}:${s}`},1000);
+  }
+  async function startInterview(){
+    state.config=getConfig();state.messages=[];$("report").classList.remove("show");$("evalStatus").textContent="Pending";
+    chat.replaceChildren();$("answerCount").textContent="0";
+    $("sessionHeading").textContent=`${state.config.role} · ${state.config.level}`;
+    $("sessionSub").textContent=`${state.config.focus} · Interview in progress`;
+    setSessionUI(true);startTimer();addMessage("assistant",`Let's begin your ${state.config.focus.toLowerCase()} interview for ${state.config.role}. Please introduce yourself and briefly describe the experience or skills most relevant to this role.`);
+    state.messages.push({role:"assistant",content:`Let's begin your ${state.config.focus.toLowerCase()} interview for ${state.config.role}. Please introduce yourself and briefly describe the experience or skills most relevant to this role.`});
+    $("answerInput").focus();
+  }
+  async function sendAnswer(){
+    const text=$("answerInput").value.trim();if(!text||!state.active||state.busy)return;
+    $("answerInput").value="";state.messages.push({role:"user",content:text});addMessage("user",text);
+    $("answerCount").textContent=String(state.messages.filter(m=>m.role==="user").length);
+    setBusy(true);showTyping();
+    try{
+      const response=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:state.messages,config:state.config})});
+      const data=await response.json();if(!response.ok)throw new Error(data.error||"The request failed.");
+      state.messages.push({role:"assistant",content:data.reply});removeTyping();addMessage("assistant",data.reply);
+    }catch(error){removeTyping();addMessage("assistant",`I couldn't get a response: ${error.message}`);toast(error.message)}
+    finally{setBusy(false);$("answerInput").focus()}
+  }
+  function addList(id,items){const ul=$(id);ul.replaceChildren();(Array.isArray(items)?items:[]).forEach(item=>{const li=document.createElement("li");li.textContent=String(item);ul.append(li)})}
+  async function finishInterview(){
+    if(!state.active){toast("Start an interview first.");return}
+    const answers=state.messages.filter(m=>m.role==="user").length;
+    if(!answers){toast("Answer at least one question before evaluating.");return}
+    if(state.busy)return;
+    setBusy(true);$("evalStatus").textContent="Generating…";toast("Preparing your interview report…");
+    try{
+      const response=await fetch("/api/evaluate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({transcript:state.messages,config:state.config})});
+      const data=await response.json();if(!response.ok)throw new Error(data.error||"Evaluation failed.");
+      const e=data.evaluation;$("scoreValue").textContent=e.overall_score;$("reportSummary").textContent=e.summary||"";
+      $("reportSummaryTitle").textContent=`Overall score · ${e.overall_score}/100`;
+      addList("strengths",e.strengths);addList("improvements",e.improvements);addList("nextSteps",e.next_steps);
+      $("communication").textContent=e.communication||"Not enough evidence."; $("technical").textContent=e.technical_depth||"Not enough evidence.";
+      $("report").classList.add("show");$("evalStatus").textContent="Complete";
+      state.active=false;clearInterval(state.timerId);setSessionUI(false);$("sessionSub").textContent="Completed · Review your feedback below";
+      $("report").scrollIntoView({behavior:"smooth",block:"start"});
+    }catch(error){$("evalStatus").textContent="Failed";toast(error.message)}
+    finally{setBusy(false)}
+  }
+  function exportTranscript(){
+    if(!state.messages.length){toast("There is no transcript to export yet.");return}
+    const lines=[`InterviewAI transcript`,`Role: ${state.config.role||$("role").value}`,`Level: ${state.config.level||$("level").value}`,`Focus: ${state.config.focus||$("focus").value}`,`Date: ${new Date().toLocaleString()}`,"",...state.messages.map(m=>`${m.role==="user"?"Candidate":"Interviewer"}:\n${m.content}\n`)];
+    const blob=new Blob([lines.join("\n")],{type:"text/plain"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="interviewai-transcript.txt";a.click();URL.revokeObjectURL(url);toast("Transcript exported.");
+  }
+  function resetSession(){clearInterval(state.timerId);state.messages=[];state.active=false;state.elapsed=0;$("timer").textContent="00:00";$("answerCount").textContent="0";$("evalStatus").textContent="Not available";$("sessionSub").textContent="Mixed interview · Ready when you are";$("sessionHeading").textContent="Software Engineer · Entry level";$("report").classList.remove("show");chat.replaceChildren();addMessage("assistant","Welcome back! Configure your interview and click Start interview when you're ready.");setSessionUI(false)}
+  async function checkHealth(){try{const r=await fetch("/api/health");const d=await r.json();$("apiDot").style.background=d.provider_configured?"var(--green)":"var(--red)";$("apiStatus").textContent=d.provider_configured?`AI ready · ${d.model}`:"Backend ready · API key missing"}catch{$("apiDot").style.background="var(--red)";$("apiStatus").textContent="Backend unavailable"}}
+  function setupVoice(){
+    const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(!SpeechRecognition){$("micBtn").disabled=true;$("micBtn").title="Voice input is not supported in this browser";return}
+    state.recognition=new SpeechRecognition();state.recognition.lang="en-US";state.recognition.interimResults=false;
+    state.recognition.onresult=e=>{$("answerInput").value+=($("answerInput").value?" ":"")+e.results[0][0].transcript};
+    state.recognition.onerror=()=>toast("Voice input was unavailable. You can type your answer instead.");
+    $("micBtn").addEventListener("click",()=>{if(!state.active){toast("Start the interview before using voice input.");return}try{state.recognition.start();toast("Listening…")}catch{toast("Voice input is already active.")}});
+  }
+  $("startBtn").addEventListener("click",startInterview);$("sendBtn").addEventListener("click",sendAnswer);
+  $("answerInput").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();sendAnswer()}});
+  $("endBtn").addEventListener("click",finishInterview);$("exportBtn").addEventListener("click",exportTranscript);$("exportSide").addEventListener("click",exportTranscript);
+  $("newInterview").addEventListener("click",()=>$("confirmModal").classList.add("show"));
+  $("cancelNew").addEventListener("click",()=>$("confirmModal").classList.remove("show"));
+  $("confirmNew").addEventListener("click",()=>{$("confirmModal").classList.remove("show");resetSession()});
+  setupVoice();checkHealth();setSessionUI(false);
+})();
+</script>
+</body>
+</html>
