@@ -143,15 +143,12 @@ http://127.0.0.1:5000
 ```text
 ai-mock-interview-bot/
 │
-├── backend/
-│   ├── app.py
-│   ├── index.html
-│   ├── requirements.txt
-│   ├── .env.example
-│   └── .gitignore
-│
+├── app.py
+├── index.html
+├── requirements.txt
+├── .env.example
+├── .gitignore
 ├── screenshots/
-│
 └── README.md
 ```
 
