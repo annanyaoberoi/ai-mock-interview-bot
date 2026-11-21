@@ -48,6 +48,10 @@ Whether you're preparing for your first technical interview or improving your co
 
 https://ai-mock-interview-bot-neon.vercel.app/
 
+## ◈ Application Preview
+
+![InterviewAI Dashboard](dashboard.png)
+
 ## ⚙️ Tech Stack
 
 | Technology | Purpose |
